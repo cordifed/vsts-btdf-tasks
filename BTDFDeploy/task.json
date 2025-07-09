@@ -5,15 +5,15 @@
   "description": "Deployment Framework for BizTalk btdfproj project target: Deploy",
   "author": "Jason Vercellone",
   "helpMarkDown": "",
-  "category": "Deploy",
+  "category": "Azure Pipelines",
   "visibility": [
     "Release"
   ],
   "demands": [],
   "version": {
-    "Major": "0",
+    "Major": "1",
     "Minor": "0",
-    "Patch": "4"
+    "Patch": "2"
   },
   "minimumAgentVersion": "1.95.0",
   "instanceNameFormat": "Deploy: $(Name)",
@@ -31,15 +31,30 @@
       "type": "string",
       "label": "Environment",
       "defaultValue": "",
-      "required": true,
-      "helpMarkDown": "The BTDF environment name, used as a prefix to the settings file name (i.e. '{0}_settings.xml')"
+      "required": false,
+      "helpMarkDown": "The environment-specific 'Settings file name:' as shown in your SettingsFileGenerator.xml.  If the .xml extension is excluded, '_settings.xml' will be appended for backwards compatibility.  Leave blank to skip EnvironmentSettings export."
+    },
+    {
+      "name": "Destination",
+      "type": "filePath",
+      "label": "Destination",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "Path to the directory where the product is installed (optional; default is a subfolder by the same name as the product in `$env:ProgramFiles or `$env:ProgramFiles(x86))."
     },
     {
       "name": "BTDeployMgmtDB",
-      "type": "boolean",
+      "type": "pickList",
       "label": "Deploy Mgmt DB",
       "defaultValue": "true",
-      "helpMarkDown": "Boolean DeployBizTalkMgmtDB MSBuild property setting used when building the BTDF project (*.btdfproj)."
+      "helpMarkDown": "Boolean DeployBizTalkMgmtDB MSBuild property setting used when building the BTDF project (*.btdfproj).",
+      "properties": {
+         "EditableOptions": "True"
+      },
+      "options": {
+        "true": "True",
+        "false": "False"
+      }
     },
     {
       "name": "SkipUndeploy",
